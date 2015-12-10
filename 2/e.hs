@@ -9,5 +9,7 @@
 fibonacci :: Integer -> Integer -> [Integer]
 fibonacci x y = x:fibonacci y (x + y)
 
-main =
-  print $ sum [x | x <- takeWhile (< 4000000) (fibonacci 1 2), mod x 2 == 0]
+sumOfEvens :: [Integer] -> Integer
+sumOfEvens xs = sum [x | x <- xs, mod x 2 == 0]
+
+main = print . sumOfEvens . takeWhile (< 4000000) $ fibonacci 1 2

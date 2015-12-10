@@ -4,5 +4,7 @@
   Find the sum of all the multiples of 3 or 5 below 1000.
 -}
 
-main =
-  print . sum . filter (\x -> mod x 3 == 0 || mod x 5 == 0) $ [1..999]
+multiplesOfThreeAndFive :: [Integer] -> [Integer]
+multiplesOfThreeAndFive xs = [x | x <- xs, mod x 3 == 0 || mod x 5 == 0]
+
+main = print . sum . multiplesOfThreeAndFive $ [1..999]
