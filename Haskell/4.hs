@@ -5,6 +5,7 @@
 -}
 
 isPalindrome :: (Eq a) => [a] -> Bool
-isPalindrome xs = if xs == reverse xs then True else False
+isPalindrome xs = xs == reverse xs
 
-main = print "fail"
+main :: IO ()
+main = error "not implemented"

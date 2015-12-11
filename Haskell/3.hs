@@ -5,11 +5,12 @@
 -}
 
 isPrime :: Integer -> Bool
-isPrime n = if [x | x <- [2..ceiling . sqrt $ a], mod n x == 0] == [] then True else False
+isPrime n = null [x | x <- [2..ceiling . sqrt $ a], mod n x == 0]
   where a = fromInteger n :: Float
 
 largestPrimeFactor :: Integer -> Integer
 largestPrimeFactor n = last . filter isPrime $ [x | x <- [1..ceiling (sqrt a)], mod n x == 0]
   where a = fromInteger n :: Float
 
+main :: IO ()
 main = print . largestPrimeFactor $ 600851475143

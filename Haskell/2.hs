@@ -12,4 +12,5 @@ fibonacci x y = x:fibonacci y (x + y)
 sumOfEvens :: [Integer] -> Integer
 sumOfEvens xs = sum [x | x <- xs, mod x 2 == 0]
 
+main :: IO ()
 main = print . sumOfEvens . takeWhile (< 4000000) $ fibonacci 1 2
