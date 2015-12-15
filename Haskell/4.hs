@@ -4,17 +4,12 @@
   Find the largest palindrome made from the product of two 3-digit numbers.
 -}
 
-digs :: Integral x => x -> [x]
-digs 0 = []
-digs x = digs (div x 10) ++ [mod x 10]
+isPalindrome :: (Eq a) => [a] -> Bool
+isPalindrome x = x == reverse x
 
-isPalindrome :: Integer -> Bool
-isPalindrome xs = dxs == reverse dxs
-  where dxs = digs xs
-
-threeDigitProductPermutations :: [Integer]
-threeDigitProductPermutations = [x * y| x <- threeDigits, y <- threeDigits]
-  where threeDigits = [100..999]
+threeDigitProductPermutation :: [Integer]
+threeDigitProductPermutation = [x * y | x <- z, y <- z]
+  where z = [100..999]
 
 main :: IO ()
-main = print . maximum . filter isPalindrome $ threeDigitProductPermutations
+main = print . maximum . map (\x -> read x :: Integer) . filter isPalindrome . map show $ threeDigitProductPermutation
