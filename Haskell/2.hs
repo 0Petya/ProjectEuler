@@ -6,11 +6,10 @@
   By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 -}
 
-fibonacci :: Integer -> Integer -> [Integer]
-fibonacci x y = x:fibonacci y (x + y)
+import Util (fibonaccis)
 
 sumOfEvens :: [Integer] -> Integer
 sumOfEvens xs = sum [x | x <- xs, mod x 2 == 0]
 
 main :: IO ()
-main = print . sumOfEvens . takeWhile (< 4000000) $ fibonacci 1 2
+main = print . sumOfEvens . takeWhile (< 4000000) $ fibonaccis

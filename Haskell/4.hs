@@ -4,8 +4,7 @@
   Find the largest palindrome made from the product of two 3-digit numbers.
 -}
 
-isPalindrome :: (Eq a) => [a] -> Bool
-isPalindrome x = x == reverse x
+import Util (isPalindrome)
 
 threeDigitProductPermutation :: [Integer]
 threeDigitProductPermutation = [x * y | x <- z, y <- z]

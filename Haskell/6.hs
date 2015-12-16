@@ -11,10 +11,10 @@
 -}
 
 sumOfSquares :: [Integer] -> Integer
-sumOfSquares x = sum . map (^ 2) $ x
+sumOfSquares x = sum . map (^ (2 :: Integer)) $ x
 
 squareOfSum :: [Integer] -> Integer
-squareOfSum x = (sum x) ^ 2
+squareOfSum x = sum x ^ (2 :: Integer)
 
 main :: IO ()
 main = print (squareOfSum x - sumOfSquares x)

@@ -4,9 +4,7 @@
   What is the largest prime factor of the number 600851475143 ?
 -}
 
-isPrime :: Integer -> Bool
-isPrime n = null [x | x <- [2..ceiling . sqrt $ a], mod n x == 0]
-  where a = fromInteger n :: Float
+import Util (isPrime)
 
 largestPrimeFactor :: Integer -> Integer
 largestPrimeFactor n = last . filter isPrime $ [x | x <- [1..ceiling (sqrt a)], mod n x == 0]

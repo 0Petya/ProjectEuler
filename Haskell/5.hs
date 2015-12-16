@@ -5,4 +5,4 @@
 -}
 
 main :: IO ()
-main = print . foldl1 lcm $ [1..20]
+main = print . foldl1 lcm $ [1 :: Integer ..20]
