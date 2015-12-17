@@ -8,7 +8,8 @@ fibonaccis = go 1 2
   where go x y = x:go y (x + y)
 
 pythagTriplets :: [(Integer, Integer, Integer)]
-pythagTriplets = [(a,b,c) | c <- [1..], b <- [1..c], a <- [1..b], (a ^ 2) + (b ^ 2) == (c ^ 2)]
+pythagTriplets = [(a,b,c) | c <- [1..], b <- [1..c], a <- [1..b], (a ^ two) + (b ^ two) == (c ^ two)]
+  where two = 2 :: Integer
 
 isPrime :: Integer -> Bool
 isPrime 1 = False
