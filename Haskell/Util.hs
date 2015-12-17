@@ -1,4 +1,4 @@
-module Util (primes, fibonaccis, pythagTriplets, isPrime, isPalindrome, toDigits) where
+module Util (primes, fibonaccis, pythagTriplets, isPrime, primeSieve, isPalindrome, toDigits) where
 
 primes :: [Integer]
 primes = filter isPrime [2..]
@@ -15,7 +15,16 @@ isPrime :: Integer -> Bool
 isPrime 1 = False
 isPrime n = null [x | x <- [2..floor . sqrt $ (fromInteger n :: Float)], mod n x == 0]
 
-isPalindrome :: (Eq a) => [a] -> Bool
+primeSieve :: Integer -> [Integer]
+primeSieve n
+  | n < 2 = error "Invalid input. Must be > 1."
+  | otherwise = go [2..n]
+      where go [] = []
+            go (x:xs)
+              | x > (floor . sqrt $ (fromInteger n :: Float)) = x:xs
+              | otherwise = x:go (filter (\y -> mod y x /= 0) xs)
+
+isPalindrome :: Eq a => [a] -> Bool
 isPalindrome x = x == reverse x
 
 toDigits :: Integral x => x -> [x]

@@ -4,7 +4,7 @@
   Find the sum of all the primes below two million.
 -}
 
-import Util (primes)
+import Util (primeSieve)
 
 main :: IO ()
-main = print . sum . takeWhile (< 2000000) $ primes
+main = print . sum . primeSieve $ 2000000
