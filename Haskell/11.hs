@@ -27,7 +27,7 @@
   What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
 -}
 
-grid :: [[Integer]]
+grid :: [[Int]]
 grid = [
     [08,02,22,97,38,15,00,40,00,75,04,05,07,78,52,12,50,77,91,08],
     [49,49,99,40,17,81,18,57,60,87,17,40,98,43,69,48,04,56,62,00],
@@ -51,8 +51,19 @@ grid = [
     [01,70,54,71,83,51,54,69,16,92,33,48,61,43,52,01,89,19,67,48]
   ]
 
-smushGrid :: [Integer]
-smushGrid = concat grid
+gridLeftRightGroups :: [[Int]] -> Int -> [[Int]]
+gridLeftRightGroups g n = go . concat $ g
+  where go [] = []
+        go xs = [take n xs] ++ (go . tail $ xs)
+
+gridUpDownGroups :: [[Int]] -> Int -> [[Int]]
+gridUpDownGroups g n = go (concat g) . length . head $ g
+  where go [] _ = []
+        go xs l = [take n xs] ++ (go (tail xs) l)
+
+rotateGrid :: [[Int]] -> [[Int]]
+rotateGrid [] = []
+rotateGrid g = [(map head g)] ++ (rotateGrid . map tail $ g)
 
 main :: IO ()
-main = print smushGrid
+main = error "not implemented"
