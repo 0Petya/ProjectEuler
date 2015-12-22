@@ -1,4 +1,4 @@
-module Util (primes, fibonaccis, pythagTriplets, isPrime, primeSieve, isPalindrome, toDigits) where
+module Util (primes, fibonaccis, pythagTriplets, triangleNumbers, isPrime, primeSieve, isPalindrome, toDigits, divisors) where
 
 primes :: [Integer]
 primes = filter isPrime [2..]
@@ -10,6 +10,11 @@ fibonaccis = go 1 2
 pythagTriplets :: [(Integer, Integer, Integer)]
 pythagTriplets = [(a,b,c) | c <- [1..], b <- [1..c], a <- [1..b], (a ^ two) + (b ^ two) == (c ^ two)]
   where two = 2 :: Integer
+
+triangleNumbers :: [Integer]
+triangleNumbers = go 0 1
+  where go x i = n:go n (i + 1)
+          where n = x + i
 
 isPrime :: Integer -> Bool
 isPrime 1 = False
@@ -30,3 +35,6 @@ isPalindrome x = x == reverse x
 toDigits :: Integral x => x -> [x]
 toDigits 0 = []
 toDigits x = toDigits (div x 10) ++ [mod x 10]
+
+divisors :: Integer -> [Integer]
+divisors x = [xs | xs <- [1..(div x 2)], mod x xs == 0] ++ [x]
