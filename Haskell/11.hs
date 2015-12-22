@@ -51,19 +51,30 @@ grid = [
     [01,70,54,71,83,51,54,69,16,92,33,48,61,43,52,01,89,19,67,48]
   ]
 
-gridLeftRightGroups :: [[Int]] -> Int -> [[Int]]
-gridLeftRightGroups g n = go . concat $ g
-  where go [] = []
-        go xs = [take n xs] ++ (go . tail $ xs)
-
-gridUpDownGroups :: [[Int]] -> Int -> [[Int]]
-gridUpDownGroups g n = go (concat g) . length . head $ g
-  where go [] _ = []
-        go xs l = [take n xs] ++ (go (tail xs) l)
-
 rotateGrid :: [[Int]] -> [[Int]]
-rotateGrid [] = []
-rotateGrid g = [(map head g)] ++ (rotateGrid . map tail $ g)
+rotateGrid g
+  | any null g = []
+  | otherwise = map head g:(rotateGrid . map tail $ g)
+
+diagGrid :: [[Int]] -> [[Int]]
+diagGrid g = flipDiag g ++ (flipDiag . map reverse $ g)
+  where flipDiag xs = halfDiag xs ++ (drop 1 . halfDiag . rotateGrid $ xs)
+          where halfDiag ys
+                  | any null ys = []
+                  | otherwise = go ys:(halfDiag . map tail $ ys)
+                    where go zs
+                            | any null zs || null zs = []
+                            | otherwise = (head . head $ zs):(go . map tail . tail $ zs)
+
+largestSubListProduct :: [Int] -> Int -> Int
+largestSubListProduct xs n = maximum . go $ xs
+  where go ys
+          | length ys < n = []
+          | otherwise = (product . take n $ ys):(go . tail $ ys)
 
 main :: IO ()
-main = error "not implemented"
+main = print . maximum $ [leftRight,upDown,diagonal]
+  where leftRight = maximum . map (`largestSubListProduct` n) $ grid
+        upDown = maximum . map (`largestSubListProduct` n) . rotateGrid $ grid
+        diagonal = maximum . map (`largestSubListProduct` n) . filter (\x -> length x >= n) . diagGrid $ grid
+        n = 4
