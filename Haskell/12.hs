@@ -17,7 +17,8 @@
   What is the value of the first triangle number to have over five hundred divisors?
 -}
 
-import Util (triangleNumbers, divisors)
+import Util (triangleNumbers, numOfDivisors)
 
 main :: IO ()
-main = print . head . filter (\x -> length x > 500) . map divisors $ triangleNumbers
+main = print . fst . head . filter (\(_,y) -> y > 500) . zip ts . map numOfDivisors $ ts
+  where ts = tail triangleNumbers

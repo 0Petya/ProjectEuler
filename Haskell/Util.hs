@@ -1,4 +1,6 @@
-module Util (primes, fibonaccis, pythagTriplets, triangleNumbers, isPrime, primeSieve, isPalindrome, toDigits, divisors) where
+module Util (primes, fibonaccis, pythagTriplets, triangleNumbers, isPrime, primeSieve, primeFactorization, isPalindrome, toDigits, divisors, numOfDivisors) where
+
+import Data.List
 
 primes :: [Integer]
 primes = filter isPrime [2..]
@@ -29,6 +31,14 @@ primeSieve n
               | x > (floor . sqrt $ (fromInteger n :: Float)) = x:xs
               | otherwise = x:go (filter (\y -> mod y x /= 0) xs)
 
+primeFactorization :: Integer -> [Integer]
+primeFactorization n = go n . primeSieve $ n
+  where go _ [] = []
+        go x (p:ps)
+          | isPrime x = [x]
+          | mod x p == 0 = p:go (div x p) (p:ps)
+          | otherwise = go x ps
+
 isPalindrome :: Eq a => [a] -> Bool
 isPalindrome x = x == reverse x
 
@@ -38,3 +48,6 @@ toDigits x = toDigits (div x 10) ++ [mod x 10]
 
 divisors :: Integer -> [Integer]
 divisors x = [xs | xs <- [1..(div x 2)], mod x xs == 0] ++ [x]
+
+numOfDivisors :: Integer -> Integer
+numOfDivisors x = product . map ((+ 1) . genericLength) . group . primeFactorization $ x
