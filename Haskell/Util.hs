@@ -1,4 +1,4 @@
-module Util (primes, fibonaccis, pythagTriplets, triangleNumbers, collatz, isPrime, primeSieve, primeFactorization, isPalindrome, toDigits, divisors, numOfDivisors) where
+module Util (primes, fibonaccis, pythagTriplets, triangleNumbers, collatz, isPrime, primeSieve, primeFactorization, isPalindrome, toDigits, divisors, numOfDivisors, factorial, centralBinomialCoefficient) where
 
 import Data.List
 
@@ -57,3 +57,10 @@ divisors x = [xs | xs <- [1..(div x 2)], mod x xs == 0] ++ [x]
 
 numOfDivisors :: Integer -> Integer
 numOfDivisors x = genericLength [xs | xs <- [1..floor . sqrt $ (fromIntegral x :: Float)], mod x xs == 0] * 2 + 1
+
+factorial :: Integer -> Integer
+factorial 1 = 1
+factorial x = x * factorial (x - 1)
+
+centralBinomialCoefficient :: Integer -> Integer
+centralBinomialCoefficient x = div (factorial (2 * x)) ((factorial x) ^ 2)
