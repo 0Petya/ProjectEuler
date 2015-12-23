@@ -50,4 +50,4 @@ divisors :: Integer -> [Integer]
 divisors x = [xs | xs <- [1..(div x 2)], mod x xs == 0] ++ [x]
 
 numOfDivisors :: Integer -> Integer
-numOfDivisors x = product . map ((+ 1) . genericLength) . group . primeFactorization $ x
+numOfDivisors x = genericLength [xs | xs <- [1..floor . sqrt $ (fromIntegral x :: Float)], mod x xs == 0] * 2 + 1
