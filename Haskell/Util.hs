@@ -1,4 +1,4 @@
-module Util (primes, fibonaccis, pythagTriplets, triangleNumbers, isPrime, primeSieve, primeFactorization, isPalindrome, toDigits, divisors, numOfDivisors) where
+module Util (primes, fibonaccis, pythagTriplets, triangleNumbers, collatz, isPrime, primeSieve, primeFactorization, isPalindrome, toDigits, divisors, numOfDivisors) where
 
 import Data.List
 
@@ -17,6 +17,12 @@ triangleNumbers :: [Integer]
 triangleNumbers = go 0 1
   where go x i = n:go n (i + 1)
           where n = x + i
+
+collatz :: Integer -> [Integer]
+collatz x
+  | x == 1 = [1]
+  | mod x 2 == 0 = x:(collatz . div x $ 2)
+  | otherwise = x:collatz (3 * x + 1)
 
 isPrime :: Integer -> Bool
 isPrime 1 = False
