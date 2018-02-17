@@ -7,4 +7,7 @@ What is the smallest positive number that is evenly divisible by all of the numb
 from fractions import gcd
 from functools import reduce
 
-print(int(reduce(lambda x, y: (x * y) / gcd(x, y), range(1, 21))))
+def lcm(x, y):
+	return (x * y) / gcd(x, y)
+
+print(int(reduce(lcm, range(1, 21))))
